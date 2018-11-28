@@ -9,4 +9,5 @@ package com.example.myvolley;
  * </pre>
  */
 public interface ResponseDelivery {
+    void postResponse(Request<?> request, Response<?> response);
 }

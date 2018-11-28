@@ -14,4 +14,9 @@ public class BasicNetwork implements Network {
     public BasicNetwork(HttpStack stack) {
         mStack = stack;
     }
+
+    @Override
+    public NetWorkResponse performResponse(Request<?> request) {
+        return null;
+    }
 }
