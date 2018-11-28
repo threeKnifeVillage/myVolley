@@ -9,7 +9,11 @@ package com.example.myvolley;
  * </pre>
  */
 public abstract class Request<T> {
+    private boolean mResponseDelivered;
 
     abstract protected Response<T> parseNetworkResponse(NetWorkResponse response);
 
+    public void markDelivered() {
+        mResponseDelivered = true;
+    }
 }

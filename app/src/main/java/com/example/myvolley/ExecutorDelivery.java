@@ -27,6 +27,29 @@ public class ExecutorDelivery implements ResponseDelivery {
 
     @Override
     public void postResponse(Request<?> request, Response<?> response) {
+        postResponse(request, response, null);
+    }
 
+    private void postResponse(Request<?> request, Response<?> response, Runnable runnable) {
+        request.markDelivered();
+        mResponseExecutor.execute(new ResponseDeliveryRunnable(request, response, runnable));
+    }
+
+
+    private class ResponseDeliveryRunnable implements Runnable {
+        private final Request mRequest;
+        private final Response mResponse;
+        private final Runnable mRunnable;
+
+        public ResponseDeliveryRunnable(Request<?> request, Response<?> response, Runnable runnable) {
+            mRequest = request;
+            mResponse = response;
+            mRunnable = runnable;
+        }
+
+        @Override
+        public void run() {
+
+        }
     }
 }
