@@ -16,11 +16,11 @@ import android.os.Build;
 public class Volley {
 
     public RequestQueue newRequestQueue(Context context) {
-        newRequestQueue(context, null);
+        return newRequestQueue(context, null);
     }
 
     public RequestQueue newRequestQueue(Context context, HttpStack httpStack) {
-        newRequestQueue(context, null, -1);
+        return newRequestQueue(context, null, -1);
     }
 
     public RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {

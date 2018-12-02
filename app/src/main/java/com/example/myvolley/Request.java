@@ -1,5 +1,6 @@
 package com.example.myvolley;
 
+
 /**
  * <pre>
  *     author : 王磊
@@ -11,9 +12,19 @@ package com.example.myvolley;
 public abstract class Request<T> {
     private boolean mResponseDelivered;
 
+    private Cache.Entry mCacheEntry;
+
     abstract protected Response<T> parseNetworkResponse(NetWorkResponse response);
 
     public void markDelivered() {
         mResponseDelivered = true;
+    }
+
+    public Cache.Entry getCacheEntry() {
+        return mCacheEntry;
+    }
+
+    public void setCacheEntry(Cache.Entry cacheEntry) {
+        mCacheEntry = cacheEntry;
     }
 }

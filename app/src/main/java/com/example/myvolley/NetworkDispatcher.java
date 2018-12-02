@@ -24,8 +24,8 @@ public class NetworkDispatcher extends Thread {
                 continue;
             }
 
-            NetWorkResponse netWorkResponsee = mNetwork.performResponse(request);
-            Response<?> response = request.parseNetworkResponse(netWorkResponsee);
+            NetWorkResponse netWorkResponse = mNetwork.performRequest(request);
+            Response<?> response = request.parseNetworkResponse(netWorkResponse);
             mDelivery.postResponse(request, response);
         }
     }

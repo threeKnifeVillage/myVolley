@@ -1,6 +1,8 @@
 package com.example.myvolley;
 
-/**
+import org.apache.http.HttpResponse;
+
+import java.util.Map; /**
  * <pre>
  *     author : 王磊
  *     time   : 2018/10/13
@@ -9,4 +11,5 @@ package com.example.myvolley;
  * </pre>
  */
 public interface HttpStack {
+    HttpResponse performRequest(Request<?> request, Map<String, String> headers);
 }

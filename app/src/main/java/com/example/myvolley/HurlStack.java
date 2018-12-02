@@ -1,5 +1,9 @@
 package com.example.myvolley;
 
+import org.apache.http.HttpResponse;
+
+import java.util.Map;
+
 /**
  * <pre>
  *     author : 王磊
@@ -9,4 +13,9 @@ package com.example.myvolley;
  * </pre>
  */
 public class HurlStack implements HttpStack {
+
+    @Override
+    public HttpResponse performRequest(Request<?> request, Map<String, String> headers) {
+        return null;
+    }
 }
