@@ -9,5 +9,5 @@ package com.example.myvolley;
  * </pre>
  */
 public interface Network {
-    NetWorkResponse performRequest(Request<?> request);
+    NetworkResponse performRequest(Request<?> request);
 }

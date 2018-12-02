@@ -14,7 +14,7 @@ public abstract class Request<T> {
 
     private Cache.Entry mCacheEntry;
 
-    abstract protected Response<T> parseNetworkResponse(NetWorkResponse response);
+    abstract protected Response<T> parseNetworkResponse(NetworkResponse response);
 
     public void markDelivered() {
         mResponseDelivered = true;
