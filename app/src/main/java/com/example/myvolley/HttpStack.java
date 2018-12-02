@@ -2,6 +2,7 @@ package com.example.myvolley;
 
 import org.apache.http.HttpResponse;
 
+import java.io.IOException;
 import java.util.Map; /**
  * <pre>
  *     author : 王磊
@@ -11,5 +12,5 @@ import java.util.Map; /**
  * </pre>
  */
 public interface HttpStack {
-    HttpResponse performRequest(Request<?> request, Map<String, String> headers);
+    HttpResponse performRequest(Request<?> request, Map<String, String> headers) throws IOException;
 }

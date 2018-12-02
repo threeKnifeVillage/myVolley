@@ -1,6 +1,11 @@
 package com.example.myvolley;
 
 
+import java.util.Collections;
+import java.util.Map;
+
+import retrofit2.http.GET;
+
 /**
  * <pre>
  *     author : 王磊
@@ -10,6 +15,10 @@ package com.example.myvolley;
  * </pre>
  */
 public abstract class Request<T> {
+    private int mMethod;
+    private String mRedirectUrl;
+    private String mUrl;
+
     private boolean mResponseDelivered;
 
     private Cache.Entry mCacheEntry;
@@ -26,5 +35,22 @@ public abstract class Request<T> {
 
     public void setCacheEntry(Cache.Entry cacheEntry) {
         mCacheEntry = cacheEntry;
+    }
+
+    public String getUrl() {
+        return mRedirectUrl != null ? mRedirectUrl : mUrl;
+    }
+
+
+    public Map<String, String> getHeaders() {
+        return Collections.emptyMap();
+    }
+
+    public int getMethod() {
+        return mMethod;
+    }
+
+    public interface METHOD {
+        int GET = 0;
     }
 }

@@ -20,10 +20,18 @@ import java.util.TreeMap;
  * </pre>
  */
 public class BasicNetwork implements Network {
+    private static final int DEFAULT_SIZE_LIMIT = 4096;
+
     private HttpStack mHttpStack;
+    private ByteArrayPool mPool;
 
     public BasicNetwork(HttpStack stack) {
-        mHttpStack = stack;
+        this(stack, new ByteArrayPool(DEFAULT_SIZE_LIMIT));
+    }
+
+    public BasicNetwork(HttpStack httpStack, ByteArrayPool pool) {
+        mHttpStack = httpStack;
+        mPool = pool;
     }
 
     @Override
@@ -57,6 +65,7 @@ public class BasicNetwork implements Network {
     }
 
     private byte[] entityToBytes(HttpEntity entity) {
+        PoolingByteArrayOutputStream bytes = new PoolingByteArrayOutputStream(mPool, (int) entity.getContentLength());
         return null;
     }
 
