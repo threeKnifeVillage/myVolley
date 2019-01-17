@@ -59,7 +59,7 @@ public class BasicNetwork implements Network {
 
                 return new NetworkResponse(statusCode, responseContents, responseHeaders, false, SystemClock.elapsedRealtime() - requestStart);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }

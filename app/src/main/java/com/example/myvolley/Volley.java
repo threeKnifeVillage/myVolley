@@ -15,15 +15,15 @@ import android.os.Build;
  */
 public class Volley {
 
-    public RequestQueue newRequestQueue(Context context) {
+    public static RequestQueue newRequestQueue(Context context) {
         return newRequestQueue(context, null);
     }
 
-    public RequestQueue newRequestQueue(Context context, HttpStack httpStack) {
+    public static RequestQueue newRequestQueue(Context context, HttpStack httpStack) {
         return newRequestQueue(context, null, -1);
     }
 
-    public RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {
+    public static RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {
         RequestQueue request;
         if (stack == null) {
             if (Build.VERSION.SDK_INT >= 9) {

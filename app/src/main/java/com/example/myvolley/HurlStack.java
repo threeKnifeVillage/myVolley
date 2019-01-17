@@ -1,11 +1,22 @@
 package com.example.myvolley;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.ProtocolVersion;
+import org.apache.http.StatusLine;
+import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.message.BasicStatusLine;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,10 +41,51 @@ public class HurlStack implements HttpStack {
             connection.addRequestProperty(headerName, map.get(headerName));
         }
 
-
-        int responseCode = connection.getResponseCode();
         setConnectionParametersForRequest(connection, request);
-        return null;
+        ProtocolVersion protocolVersion = new ProtocolVersion("HTTP", 1, 1);
+        int responseCode = connection.getResponseCode();
+        if (responseCode == -1) {
+            throw new IOException("");
+        }
+        StatusLine responseStatus = new BasicStatusLine(protocolVersion, responseCode, connection.getResponseMessage());
+        BasicHttpResponse response = new BasicHttpResponse(protocolVersion, responseCode, connection.getResponseMessage());
+        if (hasResponseBody(request.getMethod(), responseStatus.getStatusCode())) {
+            response.setEntity(entityFromConnection(connection));
+        }
+
+        for(Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet()) {
+            if (header.getKey() != null) {
+                Header h = new BasicHeader(header.getKey(), header.getValue().get(0));
+                response.addHeader(h);
+            }
+        }
+
+        return response;
+    }
+
+    private HttpEntity entityFromConnection(HttpURLConnection connection) {
+        BasicHttpEntity entity = new BasicHttpEntity();
+        InputStream inputStream;
+
+        try {
+            inputStream = connection.getInputStream();
+        } catch (Exception e) {
+            inputStream = connection.getErrorStream();
+        }
+        entity.setContent(inputStream);
+        entity.setContentLength(connection.getContentLength());
+        entity.setContentEncoding(connection.getContentEncoding());
+        entity.setContentType(connection.getContentType());
+
+        return entity;
+    }
+
+
+    private boolean hasResponseBody(int requestMethod, int responseCode) {
+        return requestMethod != Request.METHOD.HEAD
+                && !(HttpStatus.SC_CONTINUE <= responseCode && responseCode < HttpStatus.SC_OK)
+                && responseCode != HttpStatus.SC_NOT_MODIFIED
+                && responseCode != HttpStatus.SC_NO_CONTENT;
     }
 
     private void setConnectionParametersForRequest(HttpURLConnection connection, Request<?> request) throws IOException {

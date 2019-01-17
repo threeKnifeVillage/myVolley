@@ -1,6 +1,8 @@
 package com.example.myvolley;
 
 
+import android.support.annotation.NonNull;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ import retrofit2.http.GET;
  *     version: 1.0
  * </pre>
  */
-public abstract class Request<T> {
+public abstract class Request<T> implements Comparable<Request<T>> {
     private int mMethod;
     private String mRedirectUrl;
     private String mUrl;
@@ -22,6 +24,11 @@ public abstract class Request<T> {
     private boolean mResponseDelivered;
 
     private Cache.Entry mCacheEntry;
+
+    public Request(int method, String url) {
+        mMethod = method;
+        mUrl = url;
+    }
 
     abstract protected Response<T> parseNetworkResponse(NetworkResponse response);
 
@@ -52,5 +59,11 @@ public abstract class Request<T> {
 
     public interface METHOD {
         int GET = 0;
+        int HEAD = 4;
+    }
+
+    @Override
+    public int compareTo(@NonNull Request<T> o) {
+        return 0;
     }
 }
