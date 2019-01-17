@@ -80,7 +80,6 @@ public class HurlStack implements HttpStack {
         return entity;
     }
 
-
     private boolean hasResponseBody(int requestMethod, int responseCode) {
         return requestMethod != Request.METHOD.HEAD
                 && !(HttpStatus.SC_CONTINUE <= responseCode && responseCode < HttpStatus.SC_OK)

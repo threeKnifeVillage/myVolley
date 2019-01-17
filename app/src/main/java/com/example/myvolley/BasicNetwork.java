@@ -7,6 +7,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -66,6 +68,18 @@ public class BasicNetwork implements Network {
 
     private byte[] entityToBytes(HttpEntity entity) {
         PoolingByteArrayOutputStream bytes = new PoolingByteArrayOutputStream(mPool, (int) entity.getContentLength());
+        byte[] buffer = null;
+        try {
+            InputStream in = entity.getContent();
+            if (in == null) {
+                throw new Exception("");
+            }
+            buffer = mPool.getBuf(1024);
+
+        } catch (Exception e) {
+
+        }
+
         return null;
     }
 
